@@ -1,0 +1,243 @@
+For this assignment you will need to plan and write a collection of
+algorithms to implement some simple linear algebra operations. For each
+algorithm you must write and answer the three questions as the first step. Your answers to the
+three questions must match the algorithm you write. You should begin each
+algorithm by giving it a function name, see the example for more details.
+
+Your algorithms must match the style used in the example given. Do not copy the
+versions of these algorithms written in class. This is intended to be the "next
+step" in improving our initial work. You are encouraged to use those versions to help in your
+writing of these algorithms.  
+
+Your work must be typed up into this document and uploaded to blackboard. 
+
+This assignment is due by 11:59pm on 09/17/2021. Late work will not be accepted. 
+
+
+Example:
+
+Problem #0
+
+Write an algorithm to implement vector addition. 
+
+
+Q1: What do we have?
+
+A1: Two vectors stored as lists. Denoted by the names vector_a and vector_b. 
+
+Q2: What do we want?
+
+A2: Their sum stored as a list.
+
+Q3: How will we get there?
+
+A3: We will create an empty list of the appropriate size and store the sums of
+the corresponding components of vector_a and vector_b. 
+
+
+def add_vectors(vector_a,vector_b):
+
+# Initializing result as an empty list
+result = []
+
+# Add an element to result for each element of vector_a. Set that element to 0.
+for element in vector_a:
+  append 0 to result
+
+# Set each element of result to be equal to the desired sum.
+for index in range(length(result)):
+  result[index] = vector_a[index] + vector_b[index]
+
+# Return the desired result.
+return result
+
+
+
+End Example
+
+
+Problem #1
+
+Write an algorithm to implement scalar-vector multiplication.
+
+
+Q1: What do we have?
+
+A1: We have a scalar and a vector, denoted as vector_c, stored in our computer as an empty list.
+
+Q2: What do we want?
+
+A2: We want the product of the scalar and the vector stored as a list.
+
+Q3: How will we get there? 
+
+A3: Create a product between the scalar and vector_c and store it in our computer as a list.
+
+"""
+def sca_vec_multiplication(scalar, vector_c)
+ # Initialize result as an empty list
+  result = []
+ # Add an element to result for each element of vector_c 
+   Set that element to 0 for element in vector_c (make sure the elements of the result equals the elements of the vector)
+ # Set each element of the result equal to the product
+   for index in range(length(result)):
+   result[index] = scalar x vector_c[index]
+ # Return the desired result
+   return result
+"""
+End of Problem #1
+ 
+  
+
+
+Problem #2
+
+Write an algorithm to implement scalar-matrix multiplication.
+
+Q1: What do we have?
+
+A1: We have a scalar and a matrix, denoted as matrix_a, stored in our computer as an empty list of lists.
+
+Q2: What do we want?
+
+A2: We want the product of the scalar and the matrix_a.
+
+Q3: How will we get there?
+
+A3: We will create a product between the scalar and the matrix_a and store it in our computer as a new matrix. 
+
+
+def sca_mat_mult(scalar, matrix_a)
+ # Initialize result as an empty list
+   result = []
+ # Append 0 to the result list
+ # Initialize row as an empty list
+ # For element in rows
+   Append 0 to rows
+ # Set each element of result to be equal to the product
+   for index in range(length(result)):
+ # For row_index in range(length(result[index])):
+   result[index][row_index] = scalar*matrix_a[index][row_index]
+ # Return the desired result
+   return result
+
+End of Problem #2
+
+
+
+Problem #3
+
+Write an algorithm to implement matrix addition.
+
+Q1: What do we have?
+
+A1: We have two matrices, denoted as matrix_b and matrix_c, of equal dimensions stored in our computer.
+
+Q2: What do we want?
+
+A2: We want the sum of matrix_b and matrix_c.
+
+Q3: How will we get there?
+
+A3: We will generate the sum of the two matrices by adding the element of matrix_b to the corresponding element of matrix_c. 
+We will then store the result in our computer as a new matrix.
+
+
+def add_matrix (matrix_b, matrix_c)
+  # Initialize result as an empty list
+    result = []
+  # Initialize row as an empty list
+  # Append 0 to the result list
+  # For row in matrix
+    Row is equal to an empty list
+  # For element in rows
+    Append 0 to rows
+  # Set each element of product to be equal to the sum
+    for index in range(length(result))
+  # For column in range(length(result[0]))
+  # Add the corresponding indexes of the two matrices together
+  # Store the desired sum as a result
+  # Return the desired result
+    return result
+
+End of Problem #3
+
+
+
+Problem #4
+
+Write an algorithm to implement matrix-vector multiplication using the linear
+combination of columns method. You must use the algorithms from Problem #0 and
+Problem #1.  
+
+Q1: What do we have?
+
+A1: We have a matrix whose columns matches the number of rows in our vector stored in our computer. 
+We will denote them as matrix_c and vector_d.
+
+Q2: What do we want?
+
+A2: We want the product multiplication of the matrix and the vector.
+
+Q3: How will we get there?
+
+A3: First we will multiply the first column of the matrix by the first row of the vector. We will do this with the following
+columns and rows until all the elements have been multiplied. Then we will store our result as a new vector in our computer.
+
+
+def mat_vec_multiplication(matrix_01, vector_01)
+ # Initialize result as an empty list
+   result = [], []
+ # Configure another empty list for the elements of the vector
+ # Add an element to result for each element of matrix_01
+ # Set each element to 0 for element in matrix_01
+   Append 0 to result
+ # Add an element to result for each element of vector_01
+ # Set each element to 0 for element in vector_01 
+   Append 0 to result
+ # Set each element of the result equal to the desired product
+ # For index in range(length(result))
+   Result = vector_01[index][a] x matrix_01[index][a] + vector_01[index][b] x matrix_01[index][b]
+ # Return the desired result
+   return result
+
+End of Problem #4
+
+
+
+Problem #5
+
+Write an algorithm to implement matrix-matrix multiplication using your
+algorithm from Problem #4. 
+
+Q1: What do we have?
+
+A1: We have two matrices, denoted as matrix_e and matrix_f, of equal dimensions stored in our computer.
+
+Q2: What do we want?
+
+A2: We want the desired product of the two matrices.
+
+Q3: How will we get there?
+
+A3: First we will multiply the first index in the first column of matrix_e
+by the corresponding index in the first row of matrix_f and add them together. We will continue
+this process until all elements of the matrices have been calculated. Then we will store the result as a 
+new matrix in our computer.
+
+
+def mat_mat_multiplication(matrix_e, matrix_f)
+ # Initialize result as an empty list
+   result = [], []
+ # Multiply the column of matrix_02 to the corresponding row of matrix_03
+ # Set each element of the reslt equal to the desired product
+   result[index] = matrix_02[column 1][index] x matrix_03[row 1][index] + matrix_02[column 2][index]  x matrix_03[row 2][index]
+ # Return the desired result
+   return result
+
+
+End of Problem #5
+
+
+
+
