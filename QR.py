@@ -6,7 +6,7 @@ def Unstable_GS(matrix_a: list[list[float]]) -> list[list[float]]:
     """Implements the unstable version of a Gram-Schmidt reduced QR factorization
 
     First we start by setting our three variables. Q is an empty list, V is a matrix filled with
-    zeros and is the same size as matrix A, R is a matrix filled with zeros and the v is also a float 
+    zeros and is the same size as matrix A, R is a matrix filled with zeros, and the v is also a float 
     equivalent to 0. After we initialize the variables, we create our first for loop which will run the length
     of matrix A. Inside that for loop, our V will be overwritten by the same Matrix A column. Inside that we'll 
     run another for loop that goes from  0 to the column. It will first override our R row and columns, or our
@@ -26,8 +26,8 @@ def Unstable_GS(matrix_a: list[list[float]]) -> list[list[float]]:
     """
 
     Q: list[complex or float] = []
-    V: list[complex or float] = [] 
-    R: list[complex or float] = []
+    V: list[complex or float] = [[0,0,0], [0,0,0]] 
+    R: list[complex or float] = [[0,0,0], [0,0,0]]
     v = 0
 
     for column in range(len(matrix_a)):
@@ -44,10 +44,10 @@ def Unstable_GS(matrix_a: list[list[float]]) -> list[list[float]]:
 #2
 
 def Stable_GS(matrix_a: list[list[float]]) -> list[list[float]]:
-   """Implements the stable version of a Gram-Schmidt reduced QR factorization
+    """Implements the stable version of a Gram-Schmidt reduced QR factorization
 
-    First we start by setting our three variables. Q is an empty list, V is a matrix filled with
-    zeros and is the same size as matrix A, R is a matrix filled with zeros and the v is also a float 
+    First we start by setting our three variables. Q is an empty list, V is also an empty list,
+    R is a matrix filled with zeros and is the same size as matrix A, and the v is also a float 
     equivalent to 0. After we initialize the variables, we create our first for loop to run each element in
     matrix A and append the elements to our V input. For each column in our vector, the corresponding columns 
     of our R are set equal to our LA p-norm function with the vriable V[column] and will be be appended to our Q 
@@ -70,11 +70,11 @@ def Stable_GS(matrix_a: list[list[float]]) -> list[list[float]]:
 
     Q: list[complex or float] = []
     V: list[complex or float] = []
-    R: list[complex or float] = []
+    R: list[complex or float] = [[0,0,0], [0,0,0]]
     v = 0
 
     for element in matrix_a:
-        V.append(matrix_a[element])
+        V.append(element)
     for column in range(len(matrix_a)):
         R[column][column] = LA.P_norm(V[column])
         Q.append(LA.sca_vec_mult((V[column]), (1/R[column][column])))
@@ -83,10 +83,3 @@ def Stable_GS(matrix_a: list[list[float]]) -> list[list[float]]:
             v = LA.sca_vec_mult(Q[column], -R[column][rows])
             V[rows] = LA.add_vectors(V[rows], v)
     return [Q,R]
-
-#tests
-test_matrix_01 = [[1,0,5], [2,0,1]]
-test_matrix_02 = [[1,0,1], [2,1,0]]
-
-print(Unstable_GS(test_matrix_01))
-print(Unstable_GS(test_matrix_02))
