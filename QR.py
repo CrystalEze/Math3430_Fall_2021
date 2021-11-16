@@ -63,3 +63,143 @@ def Orthonormal_Vectors(matrix_a: list[list[float]]) -> list[list[float]]:
 
     result: list[list] = Stable_GS(matrix_a)[0]
     return result
+
+#3
+
+def conjugate_transpose(matrix_a: list[list[complex]]) -> list[list[complex]]:
+    """Computes the conjugate transpose of matrix_a
+
+    Args:
+        matrix_a: A matrix stored as a list of lists
+    
+    Returns:
+        result: The conjugate transpose of matrix_a
+    """
+
+    result: list[list[float]] = [([0] * (len(matrix_a))) for index in range(len(matrix_a[0]))]
+    for column in range(len(matrix_a)):
+        for row in range(len(matrix_a[0])):
+            result[row][column] = matrix_a[column][row]
+    return result
+
+
+def matrix_identity(matrix_a):
+    """Computes the identity matrix of matrix_a
+
+    We first set up the matrix by appending a zero in each spot, then we run through the length of the
+    matrix and keep replacing the zero with a one
+
+    Args:
+        matrix_a: A matrix stored as a list of lists
+    
+    Returns:
+        new_matrix: A matrix that is the identity where the diagonal elements are all equal to one 
+    """
+
+    result: list[list[float]] = [([0] * (len(matrix_a))) for index in range(len(matrix_a[0]))]
+    for element in range(len(matrix_a)):
+        result[element][element] = 1
+    return result
+
+
+def diagonal_column(matrix_a, column_number):
+    """Computes the column vector below the diagonal of our matrix_a
+
+    Args:
+        matrix_a: A matrix consisting of a list of column vectors
+    
+    Returns:
+        The diagonal column vectors stored as a list
+    """
+
+    result: list[float] = []
+    for element in range((len(matrix_a[column_number]))-column_number):
+        result[element] = result.append(0)
+        result[element] = matrix_a[column_number][element+column_number]
+    return result
+
+def calculate_V(element_vector, sub_X):
+    
+    x_norm = LA.P_norm(sub_X)
+    x_element_vector = LA.sca_vec_mult(element_vector, x_norm)
+    V = LA.add_vectors(x_element_vector, -sub_X)
+    return V
+
+
+def calculate_F(V: list[float]) -> list[list[float]]:
+    """Calculates our function F which will be used to compute our Q
+
+    First finds and uses the conjugate transpose and the dot product of our vector V for every run through
+    of F, then use the function of F which is equivalent to the transpose_v multiplied by 2 which is
+    then divided by the inner_v, and finally subtracts that from our I then returns the result
+
+    Args:
+        vector: Our column vector stored as a list
+    
+    Returns:
+        F: Our function which will be used to find our Q
+
+    """
+
+    transpose_v: list[float] = conjugate_transpose(V)
+    inner_v: float = LA.dot_product(V[0], V[0]) 
+    v_multi: list[list[float]] = LA.mat_mat_mult(V, transpose_v)
+    identity: list[list[int]] = matrix_identity(v_multi)
+    v_matrix: list[list[float]] = LA.sca_mat_mult(v_multi, (2/inner_v))
+    neg_v_matrix = LA.sca_mat_mult(v_matrix, -1)
+    F: list[list[float]] = LA.add_matrix(identity, neg_v_matrix)
+    return F
+
+
+def calculate_Q(ID_matrix: list[list[float]], F, index) -> list[list[float]]:
+    
+    Q: list[list[float]] = [([0] * (len(ID_matrix))) for index in range(len(ID_matrix[0]))]
+    for column in range(len(ID_matrix)):
+        for row in range(len(ID_matrix[0])):
+            Q[column][row] = ID_matrix[column][row]
+    for column in range(len(Q)-index):
+        for row in range(len(Q[0])-index):
+            Q[column + index][row + index] = F[column][row]
+    return Q
+
+def calculate_QFinal(Q_list: list[list[list[float]]]):
+    
+    Q = Q_list[0]
+    for index in range(len(Q_list) - 1):
+        Q = LA.mat_mat_mult(Q, Q_list[index + 1])
+    return Q
+
+
+def householder(matrix_a: list[list[float]]) -> list[list[float]]:
+    """Computes the full householder QR factorization
+
+    Args:
+        matrix_a: A matrix stored as a list of lists
+    
+    Returns:
+        A list of two matrices, the first being Q, and the second being R. 
+
+    """
+
+    R: list[list[float]] = []
+    Q_list = []
+    ID_matrix = matrix_identity(matrix_a)
+    for element in matrix_a:
+        R.append(element)
+    for index in range(len(matrix_a)-1):
+        ID_matrix = matrix_identity(matrix_a)
+        Ident_column = diagonal_column(ID_matrix, index)
+        x: list[float] = diagonal_column(R, index)
+        V: list[float] = calculate_V(Ident_column, x)
+        F: list[list[float]] = calculate_F(V)
+        Q: list[list[float]] = calculate_Q(ID_matrix, F, index)
+        Q_list.append(Q)
+        R = LA.mat_mat_mult(R, Q)
+
+    Q = calculate_QFinal(Q_list)
+    return [Q, R]
+
+#tests
+test_matrix_03 = [[1,1,1], [2,1,5]]
+
+print(householder(test_matrix_03))
