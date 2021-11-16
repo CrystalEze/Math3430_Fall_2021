@@ -3,6 +3,7 @@ import QR
 
 matrix_01 = [[1,0,5], [2,0,1]]
 matrix_02 = [[1,0,1], [2,1,0]]
+matrix_03 = [[1,1,1], [2,1,5]]
 
 def test_Stable_GramSchmidt():
     assert QR.Stable_GS(matrix_01) == [[[0.19611613513818404,0.0,0.9805806756909202], [0.98058067569092,0.0,-0.19611613513818404]],
@@ -13,3 +14,9 @@ def test_Stable_GramSchmidt():
 def test_Orthonormal_Vectors():
     assert QR.Orthonormal_Vectors(matrix_01) == [[0.19611613513818404,0.0,0.9805806756909202], [0.98058067569092,0.0,-0.19611613513818404]]
     assert QR.Orthonormal_Vectors(matrix_02) == [[0.7071067811865475,0.0,0.7071067811865475], [0.577350269189626,0.5773502691896258,-0.5773502691896257]]
+
+def test_Householder_Ortho():
+    assert QR.householder(matrix_03) == ([[-0.6,-0.6,-0.6], [-0.2,-0.6,0.8], [-0.8,0.6,0.2]],
+                                        [[-1.7,0,0], [-4.6,2.9,0]])
+    assert QR.householder(matrix_02) == ([[-0.7,0,-0.7], [-0.6,-0.6,0.6], [-0.4,0.8,0.4]],
+                                        [[-1.4,0,0], [-1.4,-1.7,0]])
