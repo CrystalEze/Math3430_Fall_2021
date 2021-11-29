@@ -153,8 +153,8 @@ def deep_copy(matrix_a: list[list[float]]) -> list[list[float]]:
     """
 
     temp = [[0 for element in range(len(matrix_a[0]))] for index in range(len(matrix_a))]
-    for i in range(len(matrix_a[0])):
-        for j in range(len(matrix_a[0])):
+    for i in range(len(matrix_a)):
+        for j in range(len(matrix_a)):
             temp[i][j] = matrix_a[i][j]
     return temp
 
@@ -297,7 +297,7 @@ def Householder_QR(matrix_a: list[list]) -> list[list]:
     Q: list = conjugate_transpose(Q_list[0])
 
     for element in range(1, len(Q_list)):
-        Q = LA.mat_mat_mult(Q, conjugate_transpose(Q_list[index]))
+        Q = LA.mat_mat_mult(Q, conjugate_transpose(Q_list[element]))
     return [Q, R]
 
 
