@@ -19,7 +19,7 @@ def back_substitution(Vector: list, matrix_a: list[list[float]]) -> list:
     """
 
     result: list = [Vector[-1] * (1/(matrix_a[-1][-1]))]
-    for i in range(len(matrix_a)-1-1, -1, -1):
+    for i in range(len(matrix_a)-2, -1, -1):
         temp: float = Vector(i)
         for j in range(len(result)):
             temp -= matrix_a[len(matrix_a)-1-j][i] * result[j]
@@ -47,8 +47,15 @@ def Least_Squares(Vector: list, matrix_a: list[list[float]]) -> list:
         The least squares solution of of our matrix and vector
     """
 
-    Q, R = QR.Householder_QR(matrix_a)
+    Q, R = QR.Stable_GS(matrix_a)
     Q_sarcasm = QR.conjugate_transpose(Q)
-    Q_awesomeness = LA.mat_vec_mult(Q_sarcasm, Vector)
+    Q_awesomeness = LA.mat_vec_mult(Vector, Q_sarcasm)
     back_hand = back_substitution(R, Q_awesomeness)
     return back_hand
+
+
+#tests
+test_matrix_01 = [[5,6,2], [3,7,8], [2,6,3]]
+test_vector_01 = [0,1,0]
+
+print(Least_Squares(test_matrix_01, test_vector_01))
