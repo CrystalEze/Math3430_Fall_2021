@@ -1,0 +1,24 @@
+Question 01)
+
+Briefly describe a computing project you would find interesting to work on in
+the future. This project may be
+
+1) Implementing existing mathematics as algorithms, as we have done in this
+course.
+
+2) A simple project to learn another computing language.
+
+3) An addition to the linear algebra package from your final project. 
+
+4) A project to learn more complex tools in python. (Such as numpy, scipy,
+pandas, machine learning packages such as tensorflow, etc...)
+
+5) A computer application (such as a video game, art tools, music editor, etc..)
+
+6) Any other type of project which I have failed to mention here.
+
+
+As a future project, I would probably like to work on something like music editing. I have always been
+a big fan of music, and now that I know how to write some algorithms; albeit it's for mathematical functions,
+I still use the knowledge I possess now to play around with that application. I would also say video games but 
+I'm not as huge a fan of veideo games as I am of music.
