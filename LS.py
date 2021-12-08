@@ -1,7 +1,7 @@
 import LA
 import QR
 
-def back_substitution(matrix_a: list[list[float]], Vector: list) -> list:
+def back_substitution(Vector: list, matrix_a: list[list[float]]) -> list:
     """Calculates the back substitution of a matrix and a vector
 
     First we inititialize result as our first solution, which is equal to the second negative index of our vector
@@ -18,15 +18,15 @@ def back_substitution(matrix_a: list[list[float]], Vector: list) -> list:
         The back substitution
     """
 
-    result: list = [Vector[-1] * (1/(matrix_a[-1][-1]))]
-    for i in range(len(matrix_a)-2, -1, -1):
-        temp: float = Vector[i]
-        for j in range(len(result)):
-            temp -= matrix_a[len(matrix_a)-1-j][i] * result[j]
-        temp *= 1/(matrix_a[i][i])
+    length = len(matrix_a)-1
+    result: list = [Vector[-1]*(1/(matrix_a[-1][-1]))]
+    for current in range(length-1,-1,-1):
+        temp = Vector[current]
+        for i in range(len(result)):
+            temp -= matrix_a[length-i][current]*result[i]
+        temp *= 1/(matrix_a[current][current])
         result.append(temp)
-    result = result[::-1]
-    return result
+    return result[::-1]
 
 def Least_Squares(Vector: list, matrix_a: list[list[float]]) -> list:
     """Calculates the least squares solution of our input vector and matrix
@@ -46,8 +46,14 @@ def Least_Squares(Vector: list, matrix_a: list[list[float]]) -> list:
         The least squares solution of of our matrix and vector
     """
 
-    Q, R = QR.Householder_QR(matrix_a)
+    [Q, R] = QR.Householder_QR(matrix_a)
     Q_sarcasm = QR.conjugate_transpose(Q)
     Q_awesomeness = LA.mat_vec_mult(Q_sarcasm, Vector)
-    back_hand = back_substitution(R, Q_awesomeness)
+    back_hand = back_substitution(Q_awesomeness, R)
     return back_hand
+
+test_matrix_01 = [[5, 6, 2], [3, 7, 8], [2, 6, 3]]
+test_vector_01 = [0, 1, 0]
+
+result = Least_Squares(test_vector_01, test_matrix_01)
+print(result)
